@@ -101,8 +101,8 @@ func (qd *QemuDriver) LoadContext(persisted map[string]interface{}) (hypervisor.
 }
 
 func (qc *QemuContext) Launch(ctx *hypervisor.VmContext) {
-	go launchQemu(qc, ctx)
-	go qmpHandler(ctx)
+	  //go launchQemu(qc, ctx)
+	  go qmpHandler(ctx)
 }
 
 func (qc *QemuContext) Associate(ctx *hypervisor.VmContext) {
@@ -353,5 +353,6 @@ func (qc *QemuContext) arguments(ctx *hypervisor.VmContext) []string {
 		"-device", "virtserialport,bus=virtio-serial0.0,nr=2,chardev=charch1,id=channel1,name=sh.hyper.channel.1",
 		"-fsdev", fmt.Sprintf("local,id=virtio9p,path=%s,security_model=none", ctx.ShareDir),
 		"-device", fmt.Sprintf("virtio-9p-pci,fsdev=virtio9p,mount_tag=%s", hypervisor.ShareDirTag),
+		"-L","/usr/share/qemu-kvm",
 	)
 }

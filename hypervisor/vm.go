@@ -53,7 +53,7 @@ func (vm *Vm) Launch(b *BootConfig) (err error) {
 
 	vm.Hub = PodEvent
 	vm.clients = CreateFanout(Status, 128, false)
-
+	fmt.Printf("gaoj ianqiao")
 	return nil
 }
 

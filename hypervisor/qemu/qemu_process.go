@@ -3,6 +3,7 @@ package qemu
 import (
 	"os"
 	"strings"
+	"fmt"
 
 	"github.com/golang/glog"
 	"github.com/hyperhq/runv/hypervisor"
@@ -62,7 +63,7 @@ func launchQemu(qc *QemuContext, ctx *hypervisor.VmContext) {
 	if glog.V(1) {
 		glog.Info("cmdline arguments: ", strings.Join(args, " "))
 	}
-
+	fmt.Printf("%q",args)
 	pid, err := utils.ExecInDaemon(qemu, append([]string{"qemu-system-x86_64"}, args...))
 	if err != nil {
 		//fail to daemonize
@@ -71,7 +72,7 @@ func launchQemu(qc *QemuContext, ctx *hypervisor.VmContext) {
 		return
 	}
 
-	glog.V(1).Infof("starting daemon with pid: %d", pid)
+	fmt.Printf("starting daemon with pid: %d", pid)
 
 	err = ctx.DCtx.(*QemuContext).watchPid(int(pid), ctx.Hub)
 	if err != nil {
@@ -79,6 +80,7 @@ func launchQemu(qc *QemuContext, ctx *hypervisor.VmContext) {
 		ctx.Hub <- &hypervisor.VmStartFailEvent{Message: "watch qemu process failed"}
 		return
 	}
+	fmt.Printf("gao jianqiao18")
 }
 
 func associateQemu(ctx *hypervisor.VmContext) {
