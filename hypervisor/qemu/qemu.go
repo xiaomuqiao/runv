@@ -296,6 +296,10 @@ func (qc *QemuDriver) SupportLazyMode() bool {
 }
 
 func (qc *QemuContext) arguments(ctx *hypervisor.VmContext) []string {
+
+	return []string{"-serial", "stdio", "-rtc", "base=utc,clock=host", "-kernel", "/home/ubuntu/os/dist/artifacts/vmlinuz","-initrd", "/home/ubuntu/os/build/initrd.test", "-m", "2048", "-net", "nic,vlan=0,model=virtio", "-net", "user,vlan=0,hostfwd=tcp::2222-:22,hostname=rancher-dev", "-hdc", "/home/ubuntu/os/build/cc.img", "-drive", "if=virtio,file=/home/ubuntu/os/state/hd.img", "-smp", "1", "-append", "\"quiet rancher.password=rancher console=ttyS0 rancher.state.formatzero=true rancher.state.autoformat=[/dev/sda,/dev/vda] rancher.rm_usr\"", "-nographic", "-display", "none",
+		}
+
 	if ctx.Boot == nil {
 		ctx.Boot = &hypervisor.BootConfig{
 			CPU:    1,
